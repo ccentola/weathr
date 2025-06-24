@@ -29,11 +29,8 @@ impl WeatherClient {
             .query(&params)
             .build()?;
 
-        println!("Request URL: {}", request.url());
         let resp = self.client.execute(request).await?;
 
-        // check if the request was successful
-        println!("Response status: {}", resp.status());
         let resp_json = resp.json::<Vec<Coordinates>>().await?;
         Ok(resp_json)
     }
@@ -52,9 +49,8 @@ impl WeatherClient {
             .query(&params)
             .build()?;
 
-        println!("Request URL: {}", request.url());
         let resp = self.client.execute(request).await?;
-        println!("Response status: {}", resp.status());
+
         let location = resp.json::<Coordinates>().await?;
         Ok(location)
     }
@@ -78,9 +74,7 @@ impl WeatherClient {
             .query(&params)
             .build()?;
 
-        println!("Request URL: {}", request.url());
         let resp = self.client.execute(request).await?;
-        println!("Response status: {}", resp.status());
 
         let weather_response = resp.json::<WeatherResponse>().await?;
         Ok(weather_response.main)
